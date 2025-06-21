@@ -66,7 +66,7 @@ const App = () => {
       }
     }
 
-    async function getFavoritos() {
+    /*async function getFavoritos() {
       try {
         const response = await fetch(valorURL + '/api/Favoritos/GetFavoritos?usuarioId=2');
         if (!response.ok) throw new Error('Erro ao buscar favoritos');
@@ -75,9 +75,9 @@ const App = () => {
       } catch (error) {
         console.error('Erro ao buscar favoritos:', error);
       }
-    }
+    }*/
 
-    getFavoritos();
+    //getFavoritos();
     getComentarios();
     getReceitas();
 
