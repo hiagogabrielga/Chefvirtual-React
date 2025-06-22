@@ -6,6 +6,8 @@ import { X, Plus, Minus } from "lucide-react";
 import DropDownRegiao from "@/components/DropDownAdicionarReceita/DropDownRegiao";
 import valorURL from "../urls";
 
+
+
 export default function Camille() {
   // Estados principais
   const [image, setImage] = useState(null);
@@ -140,7 +142,7 @@ export default function Camille() {
           ingredientes: [...etapa.ingredientes, {
             nome: ingrediente,
             quantidade: 1,
-            fracao: '',
+            medida: '',
             unidade: 'un'
           }]
         };
@@ -163,13 +165,13 @@ export default function Camille() {
     }));
   };
 
-  const atualizarFracao = (etapaId, ingredienteNome, novaFracao) => {
+  const atualizarMedida = (etapaId, ingredienteNome, novaMedida) => {
     setEtapas(prev => prev.map(etapa => {
       if (etapa.id === etapaId) {
         return {
           ...etapa,
           ingredientes: etapa.ingredientes.map(i =>
-            i.nome === ingredienteNome ? { ...i, fracao: novaFracao } : i
+            i.nome === ingredienteNome ? { ...i, medida: novaMedida } : i
           )
         };
       }
@@ -252,7 +254,7 @@ export default function Camille() {
           ingredientesFormatados.push({
             nome: i.nome,
             quantidade: i.quantidade,
-            medida: i.fracao || '',
+            medida: i.medida || '',
             unidade: i.unidade
           });
         });
@@ -282,6 +284,7 @@ export default function Camille() {
       });
 
       alert("Receita publicada com sucesso!");
+      window.location.href = '/julia/homepage';
 
     } catch (error) {
       console.error(error);
@@ -408,10 +411,10 @@ export default function Camille() {
             </div>
           </div>
 
-          <div className={styles.containerRegiao}>
+          {/*<div className={styles.containerRegiao}>
             <h4 className={styles.camposColoridos}>Região (Opcional):</h4>
             <DropDownRegiao onChange={(value) => setRegiao(value)} />
-          </div>
+          </div>*/}
         </div>
 
         {/* Seção 3 - Ingredientes com Busca Dinâmica */}
@@ -541,15 +544,17 @@ export default function Camille() {
                         />
 
                         <select
-                          value={ingrediente.fracao}
-                          onChange={(e) => atualizarFracao(etapa.id, ingrediente.nome, e.target.value)}
+                          value={ingrediente.medida}
+                          onChange={(e) => atualizarMedida(etapa.id, ingrediente.nome, e.target.value)}
                           className={styles.selectFracao}
                         >
-                          <option value="">Inteiro</option>
-                          <option value="1/2">Meio</option>
-                          <option value="1/3">Um terço</option>
-                          <option value="1/4">Um quarto</option>
-                          <option value="3/4">Três quartos</option>
+                          <option value="">Medida</option>
+                          <option value="Xicaras">xícara</option>
+                          <option value="Unidades">unidades</option>
+                          <option value="ml">ml</option>
+                          <option value="gramas">gramas</option>
+                          <option value="copo">copo</option>
+                          <option value="colheres">colheres</option>
                         </select>
 
                         <select
@@ -557,11 +562,9 @@ export default function Camille() {
                           onChange={(e) => atualizarUnidade(etapa.id, ingrediente.nome, e.target.value)}
                           className={styles.selectUnidade}
                         >
-                          <option value="un">un</option>
-                          <option value="xíc">xícara</option>
-                          <option value="col">colher</option>
-                          <option value="g">gramas</option>
-                          <option value="ml">ml</option>
+                          <option value="">Unidade</option>
+                          <option value="chá">chá</option>
+                          <option value="sopa">sopa</option>
                         </select>
 
                         <button
