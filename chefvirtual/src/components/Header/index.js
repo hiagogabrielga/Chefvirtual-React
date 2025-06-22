@@ -47,7 +47,7 @@ export default function Header() {
             <a href="/julia/homepage" className={styles.a}>INÍCIO</a>
           </li>
           <li className={styles.li}>
-            <a href="/Camille" className={styles.a}>PUBLICAR</a>
+            <a href={token ? "/Camille" : "/Ana/login"} className={styles.a}>PUBLICAR</a>
           </li>
         </ul>
       </div>
